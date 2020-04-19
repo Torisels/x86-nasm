@@ -1,0 +1,7 @@
+*.exe
+*.lst
+*.o
+out
+av
+cmake-build-debug
+
