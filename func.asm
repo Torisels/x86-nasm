@@ -1,5 +1,42 @@
 section	.text
-global  _remlastnum, remlastnum
+global  _remlastnum, remlastnum, _getdec
+
+;wczytanie pierwszej liczby dziesiętnej z łańcucha
+_getdec:
+        push	ebp
+        mov	    ebp, esp
+        mov	    eax, DWORD [ebp+8]	;address of *a to eax
+        mov     ecx, [ebp+12]
+        mov     [ecx], WORD 1
+        xor     ebx, ebx
+
+find_dig:
+        mov     dl, [eax]
+        inc     eax
+        test    dl, dl
+        jz      fin
+        cmp     dl, '0'
+        jb      find_dig
+        cmp     dl, '9'
+        ja      find_dig
+
+stoi:
+        imul    ebx, 10
+        lea     ebx, [ebx + edx - '0']
+        mov     dl, [eax]
+        inc     eax
+        test    dl, dl
+        jnz     stoi
+        mov     [ecx], WORD 0
+
+
+
+fin:
+        mov     eax, ebx
+	    pop	    ebp
+	    ret
+
+
 
 
 ;============================================
