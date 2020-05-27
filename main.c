@@ -1,22 +1,13 @@
 #include <stdio.h>
 
-//usuwanie ostatniego ciągu cyfr dziesiętnych z łańcucha
-//extern char* remlastnum(char *s);
-
-
-//wczytanie pierwszej liczby dziesiętnej z łańcucha
-unsigned int getdec(char *s, int *not_found);
-
+char* start_cap(char *s);
 
 int main(void)
 {
-    char text[]="123";
+    char text[]="a*abc**xdddd**a*0b*";
     printf("Input string      > %s\n", text);
-    int not_found = 8;
-    unsigned int result = getdec(text, &not_found);
-
-    printf("Conversion results> %d\n", result);
-    printf("Not found? :> %d\n", not_found);
+    char *result = start_cap(text);
+    printf("Conversion results> %s\n", result);
 
     return 0;
 }

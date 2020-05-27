@@ -1,47 +1,38 @@
 section	.text
-global  _remlastnum, remlastnum, _getdec, start_cap, _start_cap
+global  _remlastnum, remlastnum, _getdec
 
 ;wczytanie pierwszej liczby dziesiętnej z łańcucha
-_start_cap:
-start_cap:
+_getdec:
         push	ebp
         mov	    ebp, esp
-        mov     ebx, [ebp+8]
+        mov	    eax, DWORD [ebp+8]	;address of *a to eax
+        mov     ecx, [ebp+12]
+        mov     [ecx], WORD 1
+        xor     ebx, ebx
 
-first_star:
-        mov     cl, [ebx]
-        inc     ebx
-        test    cl, cl
+find_dig:
+        mov     dl, [eax]
+        inc     eax
+        test    dl, dl
         jz      fin
-        cmp     cl, '*'
-        jne     first_star
-        mov     esi, ebx
+        cmp     dl, '0'
+        jb      find_dig
+        cmp     dl, '9'
+        ja      find_dig
 
-last_star:
-        mov     cl, [ebx]
-        cmp     cl, '*'
-        jne     then
-        mov     edx, ebx
-then:
-        inc     ebx
-        test    cl, cl
-        jnz     last_star
+stoi:
+        imul    ebx, 10
+        lea     ebx, [ebx + edx - '0']
+        mov     dl, [eax]
+        inc     eax
+        test    dl, dl
+        jnz     stoi
+        mov     [ecx], WORD 0
 
-last_loop:
-        mov    al, [esi]
-        cmp    esi, edx
-        je     fin
-        inc    esi
-        cmp    al, 'a'
-        jl     last_loop
-        cmp    al, 'z'
-        jg     last_loop
-        sub    al, ' '
-        mov    [esi-1], al
-        jmp    last_loop
+
 
 fin:
-        mov     eax, [ebp+8]
+        mov     eax, ebx
 	    pop	    ebp
 	    ret
 
