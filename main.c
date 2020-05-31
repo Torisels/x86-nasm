@@ -1,12 +1,12 @@
 #include <stdio.h>
 
-char* start_cap(char *s);
+char* kchars(char *s);
 
 int main(void)
 {
-    char text[]="a*abc**xdddd**a*0b*";
+    char text[]="ALA 3MA KOTA";
     printf("Input string      > %s\n", text);
-    char *result = start_cap(text);
+    char *result = kchars(text);
     printf("Conversion results> %s\n", result);
 
     return 0;
