@@ -1,12 +1,12 @@
 #include <stdio.h>
 
-char* occurenceA(char *s);
+char* occurenceB(char *s);
 
 int main(void)
 {
-    char text[]="ALA MA          KOTA~~~~~~~~~~~~~~~~~~~~";
+    char text[]="ALAXD MA KOTA KOTA KOTA KOTA";
     printf("Input string      > %s\n", text);
-    char *result = occurenceA(text);
+    char *result = occurenceB(text);
     printf("Conversion results> %s\n", result);
 
     return 0;
