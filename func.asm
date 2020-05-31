@@ -1,56 +1,52 @@
 section	.text
-global  kcharsD, _kcharsD
+global  occurenceA, _occurenceA
 
-; zad 1D
-kcharsD:
-_kcharsD:
+; zad 2A
+occurenceA:
+_occurenceA:
         push	ebp
         mov	    ebp, esp
         mov     ebx, [ebp+8]
 
-first_digit:
-        mov     cl, [ebx]
+        mov     cl, ' '
+        xor     edi, edi
+        xor     esi, esi
+        xor     dl, dl
+
+outer_loop:
+        xor     esi, esi
+        mov     ebx, [ebp+8]
+inner_loop:
+        mov     al, [ebx]
         inc     ebx
-        test    cl, cl
-        jz      fin ;digit not found
-        cmp     cl, '9'
-        ja      first_digit
-        cmp     cl, '0'
-        jb      first_digit
-        and     ecx, 0xFF
-        sub     ecx, '0'
-        mov     edi, ebx
-        sub     edi, 2
+        test    al, al
+        jz      fin_inner
+        cmp     al, cl
+        jne     inner_loop
+        inc     esi
+        jmp     inner_loop
+fin_inner:
+        cmp     esi, edi
+        jl      then
+        mov     dl, cl
+        mov     edi, esi
+then:
+        inc     cl
+        cmp     cl, 127
+        jl      outer_loop
 
 
-last_digit:
-        mov    al, [ebx]
-        inc    ebx
-        test   al, al
-        jz     cap
-        cmp    al, '9'
-        ja     last_digit
-        cmp    al, '0'
-        jb     last_digit
-        mov    edi, ebx
-        sub    edi, 2
-        jmp    last_digit
-
-
-cap:
-        sub    edi, ecx
-
-capitalize:
-        mov     al, [edi + ecx]
-        dec     ecx
-        js      fin
-        cmp     al, 'A'
-        jb      capitalize
-        cmp     al, 'Z'
-        ja      capitalize
-        add     al, ' '
-        mov     [edi+ecx+1], al
-        jmp     capitalize
+        mov     ebx, [ebp+8]
+fill_loop:
+        mov     al, [ebx]
+        inc     ebx
+        test    al, al
+        jz      fin
+        cmp     al, dl
+        jne     fill_loop
+        mov     al, '*'
+        mov     [ebx-1], al
+        jmp     fill_loop
 
 fin:
         mov     eax, [ebp+8]

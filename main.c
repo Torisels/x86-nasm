@@ -1,12 +1,12 @@
 #include <stdio.h>
 
-char* kcharsD(char *s);
+char* occurenceA(char *s);
 
 int main(void)
 {
-    char text[]="ALA 3MA KOTA";
+    char text[]="ALA MA          KOTA~~~~~~~~~~~~~~~~~~~~";
     printf("Input string      > %s\n", text);
-    char *result = kcharsD(text);
+    char *result = occurenceA(text);
     printf("Conversion results> %s\n", result);
 
     return 0;
