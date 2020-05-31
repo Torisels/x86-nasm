@@ -1,12 +1,12 @@
 #include <stdio.h>
 
-char* kchars(char *s);
+char* kcharsD(char *s);
 
 int main(void)
 {
     char text[]="ALA 3MA KOTA";
     printf("Input string      > %s\n", text);
-    char *result = kchars(text);
+    char *result = kcharsD(text);
     printf("Conversion results> %s\n", result);
 
     return 0;
